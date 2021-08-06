@@ -1,6 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MOduleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -38,6 +38,13 @@ module.exports = {
       filename: "index.html",
       template: "./public/index.html",
       title: "App",
+    }),
+    new ModuleFederationPlugin({
+      name: "ContactApp",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./ContactPage": "./src/Contact",
+      },
     }),
   ],
 };
